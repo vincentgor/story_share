@@ -1,0 +1,27 @@
+{
+  "name": "story_share",
+  "version": "0.0.1",
+  "description": "share our stories with photograph",
+  "main": "index.js",
+  "scripts": {
+    "test": "node example/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vincentgor/story_share.git"
+  },
+  "keywords": [
+    "photo",
+    "share",
+    "story"
+  ],
+  "author": "vinxent",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vincentgor/story_share/issues"
+  },
+  "homepage": "https://github.com/vincentgor/story_share#readme",
+  "dependencies": {
+    "koa": "^1.1.2"
+  }
+}
