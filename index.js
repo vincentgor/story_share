@@ -1,7 +1,8 @@
 var koa = require('koa');
 //var router = require('koa-router')();
 var app = koa();
-app.use(require('koa-static')('public'));
+//app.use(require('koa-static')(__dirname + '/public'));  // 这里最好不要直接写'public'，可能会有路径错误
+app.use(require('koa-static')(__dirname + '/public'));
 
 // x-response-time
 app.use(function *(next) {
@@ -26,7 +27,7 @@ app.use(function *() {
 });
 
 app.listen(8080, function() {
-    console.log('server is listening', app.name, app.env, app.proxy);
+    console.log('server is listening', __dirname, app.name, app.env, app.proxy);
 });
 
 app.on('error', function(err, ctx) {
