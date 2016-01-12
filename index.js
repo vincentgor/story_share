@@ -2,6 +2,7 @@ var koa = require('koa');
 //var router = require('koa-router')();
 var app = koa();
 //app.use(require('koa-static')(__dirname + '/public'));  // 这里最好不要直接写'public'，可能会有路径错误
+app.use(require('koa-static')(__dirname + '/bower_components'));
 app.use(require('koa-static')(__dirname + '/public'));
 
 // x-response-time
