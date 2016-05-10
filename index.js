@@ -34,9 +34,14 @@ app.use(function *(next) {
     console.log('%s %s - %s', this.method, this.url, ms);
 });
 
+var homeServer = require('./src/service/Home');
 // your loggic here
 router.get('/logic', function *(next) {
-    this.body = '/logic'
+    this.body = yield homeServer.create({
+        city: 'guangzhou',
+        street: 'heguanglu',
+        number: 8
+    });
 });
 
 router.get('/hello', function *(next) {
