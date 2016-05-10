@@ -1,11 +1,16 @@
+'use strict';
+
+var path = require('path');
+
 var koa = require('koa');
 var router = require('koa-router')();
 var koa_static = require('koa-static');
 var cors = require('koa-cors');
+
 var app = koa();
 
-app.use(koa_static(__dirname + '/bower_components'));
-app.use(koa_static(__dirname + '/public'));   // 这里最好不要直接写'public'，可能会有路径错误
+app.use(koa_static(path.join(__dirname, 'bower_components')));
+app.use(koa_static(path.join(__dirname, 'public')));   // 这里最好不要直接写'public'，可能会有路径错误
 
 app.use(cors());
 app.use(router.routes());
@@ -13,43 +18,43 @@ app.use(router.allowedMethods());
 
 // x-response-time
 app.use(function *(next) {
-    var start = new Date;
-    console.log('some is coming');
+    var start = new Date();
+    console.log('some one is coming');
     yield next;
-    var ms = new Date - start;
+    var ms = new Date() - start;
     this.set('X-Response-Time', ms + 'ms');
 });
 
 // logger
 app.use(function *(next) {
-    var start = new Date;
-    console.log('logger');
+    var start = new Date();
+    console.log('this is logger');
     yield next;
-    var ms = new Date - start;
+    var ms = new Date() - start;
     console.log('%s %s - %s', this.method, this.url, ms);
 });
 
-// your loggic
-router.get('/', function *(next) {
-    this.body = '//////'
+// your loggic here
+router.get('/logic', function *(next) {
+    this.body = '/logic'
 });
 
-// router.get('/hello', function *(next) {
-//     this.body = 'hello world',
-//     yield next;
-// }, function *(next) {
-//     this.body += 'hello world2'
-// });
+router.get('/hello', function *(next) {
+    this.body = 'hello world';
+    yield next;
+}, function *(next) {
+    this.body += 'hello world2'
+});
+
 var users = [];
 router
-    .param('user', function *(id, next) {
-        console.log(3333);
+    .param('/users', function *(id, next) {
         this.user = users[id];
         if (!this.user) return this.status = 404;
         yield next;
     })
     .get('/users/:id', function *(next) {
-        this.body = '2211';
+        this.body = '/users/:id';
     })
     .get('/users/:user/friends', function *(next) {
         this.body = 'my friends';

@@ -23,5 +23,12 @@
   },
   "homepage": "https://github.com/vincentgor/story_share#readme",
   "dependencies": {
+    "bluebird": "^3.3.5",
+    "co": "^4.6.0",
+    "koa": "^1.2.0",
+    "koa-cors": "0.0.16",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
+    "sequelize": "^3.23.0"
   }
 }
