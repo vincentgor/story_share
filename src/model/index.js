@@ -1,10 +1,7 @@
-/**
- * Created by vinxent on 2016/5/10.
- */
+'use strict';
 
-
-
-var mysqlConfig = require('./../config/default').mysql;
+var config = require('config');
+var mysqlConfig = config.mysql;
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlConfig.password, {
     host: 'localhost',

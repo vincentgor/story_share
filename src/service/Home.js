@@ -1,7 +1,3 @@
-/**
- * Created by vinxent on 2016/5/11.
- */
-
 'use strict';
 
 var Promise = require('bluebird');

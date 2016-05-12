@@ -1,6 +1,4 @@
-/**
- * Created by vinxent on 2016/5/8.
- */
+'use strict';
 
 var Sequelize = require('sequelize');
 
