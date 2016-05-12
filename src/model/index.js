@@ -25,7 +25,7 @@ var dB = {
 
 module.exports = dB;
 
-sequelize.sync().then(()=>{
+sequelize.sync().then(()=> {
     console.log('数据表初始化完成');
 });
 
