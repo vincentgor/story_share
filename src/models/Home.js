@@ -1,11 +1,9 @@
 'use strict';
 
-var Sequelize = require('sequelize');
-
-module.exports = function (sequelize) {
-    var home = sequelize.define('Home', {
+module.exports = function (sequelize, DataTypes) {
+    var Home = sequelize.define('Home', {
         city: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             validate: {
                 is: ["[a-z]", 'i'],        // will only allow letters
                 max: 23
@@ -13,16 +11,16 @@ module.exports = function (sequelize) {
             field: 'column_city'
         },
         street: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             field: 'column_street'
         },
         number: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             field: 'column_number'
         }
     }, {
 
     });
-    return home;
+    return Home;
 };
 

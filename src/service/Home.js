@@ -2,7 +2,7 @@
 
 var Promise = require('bluebird');
 
-var dB = require('./../model');
+var dB = require('./../models');
 
 class Server {
     constructor() {

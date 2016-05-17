@@ -7,6 +7,8 @@ var router = require('koa-router')();
 var koa_static = require('koa-static');
 var cors = require('koa-cors');
 
+var models = require('./src/models');
+
 var app = koa();
 
 app.use(koa_static(path.join(__dirname, 'bower_components')));
@@ -40,10 +42,16 @@ app.use(function *(next) {
 });
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, function () {
-    console.log('server is listening', PORT);
+
+models.sequelize.sync().then(function () {
+    console.log('数据库构建完成');
+    app.listen(PORT, function () {
+        console.log('server is listening', PORT);
+    });
+
+    app.on('error', function (err, ctx) {
+        console.log('server errer', err, ctx);
+    });
 });
 
-app.on('error', function (err, ctx) {
-    console.log('server errer', err, ctx);
-});
+

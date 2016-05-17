@@ -3,13 +3,25 @@
 var userServer = require('./../service/User');
 
 module.exports = function (router) {
-    router.get('/use1', function *(next) {
-        this.body = 'use1';
+    router.get('/userCreateOK', function *(next) {
+        this.body = yield userServer.create({
+            name: 'xiaoming',
+            sex: '男',
+            age: 24
+        }).catch((err) => {
+            return Promise.resolve('出错啦');
+        });
     });
-    router.get('/use2', function *(next) {
-        this.body = 'use2';
+    router.get('/userCreateError', function *(next) {
+        this.body = yield userServer.create({
+            name: '小明',
+            sex: '男',
+            age: 24
+        }).catch((err) => {
+            return Promise.resolve('出错啦');
+        });
     });
-    router.get('/use3', function *(next) {
+    router.get('/use', function *(next) {
         this.body = 'use3';
     });
 };
