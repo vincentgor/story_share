@@ -5,7 +5,7 @@ module.exports = function (sequelize, DataTypes) {
         city: {
             type: DataTypes.STRING,
             validate: {
-                is: ["[a-z]", 'i'],        // will only allow letters
+                is: ['[a-z]', 'i'],        // will only allow letters
                 max: 23
             },
             field: 'column_city'

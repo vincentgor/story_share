@@ -1,19 +1,27 @@
 'use strict';
 
-var Router = require('koa-router');
+var fs = require('fs');
+var path = require('path');
+
+const Router = require('koa-router');
+
+const utils = require('./utils');
 
 module.exports = function (router) {
 
-    var user = new Router();
-    var home = new Router();
-
-    require('./src/routes/User')(user);
-    require('./src/routes/Home')(home);
-
-    router.use('/user', user.routes(), user.allowedMethods());
-    router.use('/home', home.routes(), home.allowedMethods());
-
-
+    let routesDir = path.join(__dirname, 'src/routes');
+    fs
+        .readdirSync(routesDir)
+        .filter(function (file) {
+            return (file.indexOf('.') !== 0) && (file !== 'index.js');
+        })
+        .forEach(function (file) {
+            let fileName = utils.getFileNameFromFileStr(file);
+            let subRouter = new Router();
+            let routerModule = path.join(routesDir, file);
+            require(routerModule)(subRouter);
+            router.use('/' + fileName, subRouter.routes(), subRouter.allowedMethods());
+        });
 
 };
 
