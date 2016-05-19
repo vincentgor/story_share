@@ -1,7 +1,7 @@
 'use strict';
 
 var path = require('path');
-
+console;    // 其实我也不知道为何要这么些，但是不这么做的话，在debug模式下，我的ide不干了
 var koa = require('koa');
 var router = require('koa-router')();
 var koa_static = require('koa-static');
