@@ -1,7 +1,7 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 const Router = require('koa-router');
 
@@ -20,7 +20,7 @@ module.exports = function (router) {
             let subRouter = new Router();
             let routerModule = path.join(routesDir, file);
             require(routerModule)(subRouter);
-            router.use('/' + fileName, subRouter.routes(), subRouter.allowedMethods());
+            router.use('/' + fileName.toLowerCase(), subRouter.routes(), subRouter.allowedMethods());
         });
 
 };

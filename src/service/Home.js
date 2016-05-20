@@ -1,8 +1,8 @@
 'use strict';
 
-var Promise = require('bluebird');
+const Promise = require('bluebird');
 
-var dB = require('./../models');
+const dB = require('./../models');
 
 class Server {
     constructor() {

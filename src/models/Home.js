@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (sequelize, DataTypes) {
-    var Home = sequelize.define('Home', {
+    let Home = sequelize.define('Home', {
         city: {
             type: DataTypes.STRING,
             validate: {

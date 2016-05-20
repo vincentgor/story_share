@@ -1,16 +1,16 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
-var Sequelize = require('sequelize');
-var config = require('config');
+const Sequelize = require('sequelize');
+const config = require('config');
 
-var mysqlConfig = config.mysql;
+const mysqlConfig = config.mysql;
 
 console.log(config.description)
 
-var sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlConfig.password, {
+const sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlConfig.password, {
     host: 'localhost',
     dialect: 'mysql',
     pool: {
@@ -20,7 +20,7 @@ var sequelize = new Sequelize(mysqlConfig.database, mysqlConfig.username, mysqlC
     }
 });
 
-var db = {};
+const db = {};
 
 fs
     .readdirSync(__dirname)
@@ -28,7 +28,7 @@ fs
         return (file.indexOf('.') !== 0) && (file !== 'index.js');
     })
     .forEach(function (file) {
-        var model = sequelize.import(path.join(__dirname, file));
+        let model = sequelize.import(path.join(__dirname, file));
         db[model.name] = model;
     });
 
