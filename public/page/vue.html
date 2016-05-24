@@ -7,14 +7,19 @@
 <link href="/css/vue.css"/>
 <body>
 
-<div id="koala">
-    <div v-if="show" :transition="transitionName">hello</div>
+<div id="app">
+
+    <a v-link="{name: 'user', params: {userId: 123455}}">1</a>
+
+    <router-view></router-view>
+
 </div>
 
 
 </body>
 
 <script src="/vue/dist/vue.js"></script>
+<script src="/vue-router/dist/vue-router.js"></script>
 <script src="/js/vue.js"></script>
 
 </html>
