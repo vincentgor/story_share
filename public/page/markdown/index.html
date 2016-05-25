@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<link href="/page/markdown/index.css"/>
+
+<body>
+
+<div id="editor">
+    <textarea v-model="input" debounce="300"></textarea>
+    <div v-html="input"></div>
+</div>
+
+
+</body>
+
+<script src="/vue/dist/vue.js"></script>
+<script src="/vue-router/dist/vue-router.js"></script>
+<script src="/page/markdown/index.js"></script>
+
+</html>
