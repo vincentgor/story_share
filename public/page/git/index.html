@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<link href="/page/git/index.css"/>
+
+<body>
+
+<div id="git">
+    <h1>last commits</h1>
+    <template v-for="branch in branches">
+        <input type="radio"
+               name="branch"
+               :id="branch"
+               :value="branch"
+               v-model="currentBranch" >
+        <label :for="branch">{{branch}}</label>
+    </template>
+    <p>story_share@{{currentBranch}}</p>
+    <ul>
+        <li v-for="record in commits">
+            <a :href="record.html_url" target="_blank" class="commit">{{record.sha.slice(0, 7)}}</a>
+            - <span class="message">{{record.commit.message | truncate}}</span><br>
+            by <span class="author">{{record.commit.author.name}}</span>
+            at <span class="date">{{record.commit.author.date | formatDate}}</span>
+        </li>
+    </ul>
+</div>
+
+
+</body>
+
+<script src="/jquery/dist/jquery.min.js"></script>
+<script src="/vue/dist/vue.js"></script>
+<script src="/vue-router/dist/vue-router.js"></script>
+<script src="/page/git/index.js"></script>
+
+</html>
