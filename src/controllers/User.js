@@ -1,0 +1,86 @@
+/**
+ * Created by vinxent on 2016/5/26.
+ */
+
+const Promise = require('bluebird');
+
+const userService = require('./../service/User');
+
+/**
+ *
+ */
+class User {
+
+    constructor () {
+
+        /**
+         * ### 用户登录
+         * @param next
+         */
+        this.login = function* (next){
+            let result = yield userService.find({
+                name: this.query.name,
+                password: this.query.password
+            });
+            this.type = 'json';
+            if (result.instance) {
+                // 登录成功
+
+                this.body = {
+                    code: 0,
+                    msg: '登录成功'
+                };
+            } else {
+                this.body = {
+                    code: 1,
+                    msg: '登录失败'
+                };
+            }
+        };
+
+        /**
+         * ### 用户注册
+         * @param next
+         */
+        this.register = function* (next){
+            let result = yield userService.createOrfind({
+                name: this.query.name,
+                password: this.query.password,
+                createTime: Date.now()
+            });
+            this.type = 'json';
+            if (result.created) {
+                // 注册成功
+                this.body = {
+                    code: 0,
+                    msg: '注册成功'
+                };
+            } else {
+                this.body = {
+                    code: 1,
+                    msg: '用户已经存在啦'
+                };
+            }
+        };
+
+        /**
+         * ### 更新用户信息
+         * @param next
+         */
+        this.update = function* (next){
+            this.body = 'this.update';
+        };
+
+        /**
+         * ### 用户详情
+         * @param next
+         */
+        this.detail = function* (next){
+            this.body = 'this.detail';
+        };
+
+    }
+
+}
+
+module.exports = new User();

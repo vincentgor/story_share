@@ -20,7 +20,7 @@ module.exports = function (router) {
             let subRouter = new Router();
             let routerModule = path.join(routesDir, file);
             require(routerModule)(subRouter);
-            router.use('/' + fileName.toLowerCase(), subRouter.routes(), subRouter.allowedMethods());
+            router.use('/api/v1/' + fileName.toLowerCase(), subRouter.routes(), subRouter.allowedMethods());
         });
 
 };

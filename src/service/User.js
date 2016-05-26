@@ -2,17 +2,38 @@
 
 const Promise = require('bluebird');
 
-const dB = require('./../models');
+const User = require('./../models').User;
 
 class Server {
-    constructor() {
 
+    constructor() {}
+
+    createOrfind (obj) {
+        console.log('createOrfind...');
+        return User.findOrCreate({
+            where: {
+                name: obj.name
+            },
+            defaults: obj
+        }).spread((instance, created) => {
+            return {instance, created};
+        });
     }
 
-    create(obj) {
-        console.log('create...');
-        return dB.User.create(obj);//.get('dataValues').tap(console.log);
+    find (obj) {
+        console.log('find...');
+        return User.findOne({
+            where: {
+                name: obj.name,
+                password: obj.password
+            },
+            raw: true
+        }).then((instance) => {
+            console.log(instance);
+            return {instance};
+        });
     }
+
 }
 
 module.exports = new Server();
