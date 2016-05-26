@@ -9,12 +9,16 @@ const router = require('koa-router')();
 const koa_static = require('koa-static');
 const cors = require('koa-cors');
 const log4js = require('koa-log4js');
+const session = require('koa-session');
 
 const models = require('./src/models');
 const notFound = require('./src/middleware/notFound');
 
-const app = koa();
 const PORT = process.env.PORT || 8080;
+
+const app = koa();
+app.keys = ['story_share'];
+app.use(session(app));
 
 app.use(koa_static(path.join(__dirname, 'bower_components')));
 app.use(koa_static(path.join(__dirname, 'public')));   // 这里最好不要直接写'public'，可能会有路径错误

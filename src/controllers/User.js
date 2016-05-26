@@ -14,7 +14,7 @@ class User {
     constructor () {
 
         /**
-         * ### 用户登录
+         * ### 用户登入
          * @param next
          */
         this.login = function* (next){
@@ -25,15 +25,43 @@ class User {
             this.type = 'json';
             if (result.instance) {
                 // 登录成功
-
+                this.session.user = result.instance;
                 this.body = {
                     code: 0,
                     msg: '登录成功'
                 };
             } else {
+                delete this.session.user;
                 this.body = {
                     code: 1,
                     msg: '登录失败'
+                };
+            }
+        };
+
+        /**
+         * ### 用户登出
+         * @param next
+         */
+        this.logout = function* (next){
+
+            this.type = 'json';
+            if (this.session.user) {
+                console.log('已经登录过了');
+            } else {
+                console.log('还没有登录');
+            }
+            if (this.session.user) {
+                // 退出
+                delete this.session.user;
+                this.body = {
+                    code: 0,
+                    msg: '退出成功'
+                };
+            } else {
+                this.body = {
+                    code: 1,
+                    msg: '没有登录，何来退出'
                 };
             }
         };

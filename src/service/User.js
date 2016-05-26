@@ -29,7 +29,6 @@ class Server {
             },
             raw: true
         }).then((instance) => {
-            console.log(instance);
             return {instance};
         });
     }
