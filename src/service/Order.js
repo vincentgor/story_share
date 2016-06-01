@@ -17,6 +17,15 @@ class Server {
         });
     }
 
+    findById (id) {
+        console.log('findById...');
+        return Order.findById(id, {
+            raw: true
+        }).then((instance) => {
+            return instance;
+        });
+    }
+
     find (obj) {
         console.log('find...');
         return Order.findOne({
@@ -27,6 +36,24 @@ class Server {
             raw: true
         }).then((instance) => {
             return {instance};
+        });
+    }
+
+    update (obj, fields) {
+        if (!Array.isArray(fields)) {
+            fields = [fields];
+        }
+        console.log('update...');
+        return Order.update(obj, {
+            fields:fields,
+            where: {
+                id: obj.id
+            }
+        }).spread((affectedCount) => {
+//            if (affectedCount === 0) {
+//                return Promise.reject('数据库错误');
+//            }
+            return affectedCount;
         });
     }
 
