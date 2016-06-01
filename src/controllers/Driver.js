@@ -4,12 +4,12 @@
 
 const Promise = require('bluebird');
 
-const userService = require('./../service/User');
+const driverService = require('./../service/Driver');
 
 /**
  *
  */
-class User {
+class Driver {
 
     constructor () {
 
@@ -18,20 +18,20 @@ class User {
          * @param next
          */
         this.login = function* (next){
-            let result = yield userService.find({
+            let result = yield driverService.find({
                 name: this.query.name,
                 password: this.query.password
             });
             this.type = 'json';
             if (result.instance) {
                 // 登录成功
-                this.session.user = result.instance;
+                this.session.driver = result.instance;
                 this.body = {
                     code: 0,
                     msg: '登录成功'
                 };
             } else {
-                delete this.session.user;
+                delete this.session.driver;
                 this.body = {
                     code: 1,
                     msg: '登录失败'
@@ -46,9 +46,9 @@ class User {
         this.logout = function* (next){
 
             this.type = 'json';
-            if (this.session.user) {
+            if (this.session.driver) {
                 // 退出
-                delete this.session.user;
+                delete this.session.driver;
                 this.body = {
                     code: 0,
                     msg: '退出成功'
@@ -66,9 +66,10 @@ class User {
          * @param next
          */
         this.register = function* (next){
-            let result = yield userService.createOrfind({
+            let result = yield driverService.createOrfind({
                 name: this.query.name,
                 password: this.query.password,
+                sex: this.query.sex,
                 createTime: Date.now()
             });
             this.type = 'json';
@@ -99,11 +100,11 @@ class User {
          * @param next
          */
         this.detail = function* (next){
-            this.body = this.session.user;
+            this.body = this.session.driver;
         };
 
     }
 
 }
 
-module.exports = new User();
+module.exports = new Driver();

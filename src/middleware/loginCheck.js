@@ -8,7 +8,7 @@ class Check {
 
         this.checkOnLine = function* (next) {
             console.log('看看我是否在线');
-            if (this.session.user) {
+            if (this.session.user || this.session.driver) {
                 console.log('在线：可以继续往下走');
                 yield next;
             } else {
@@ -22,7 +22,7 @@ class Check {
 
         this.checkOffLine = function* (next) {
             console.log('看看我是否离线');
-            if (!this.session.user) {
+            if (!this.session.user && !this.session.driver) {
                 console.log('离线：可以继续往下走');
                 yield next;
             } else {
