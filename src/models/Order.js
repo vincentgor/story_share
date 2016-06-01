@@ -16,10 +16,11 @@ module.exports = function (sequelize, DataTypes) {
         },
         driverId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0,
+            allowNull: true,
+//            defaultValue: 0,
             field: 'driver_id',
             references  : {model: 'tbl_driver', key: 'id'},
+            onUpdate: 'CASCADE',
             comment: "司机id"
         },
         status: {
@@ -34,6 +35,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             field: 'city_origin_code',
             references  : {model: 'tbl_city', key: 'code'},
+            onUpdate: 'CASCADE',
             comment: "出发城市代号"
         },
         cityDestinationCode: {
@@ -41,6 +43,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             field: 'city_destination_code',
             references  : {model: 'tbl_city', key: 'code'},
+            onUpdate: 'CASCADE',
             comment: "目的城市代号"
         },
         origin: {
@@ -70,6 +73,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             field: 'prize',
             comment: "人均价格"
+        },
+        beginTime: {
+            type: DataTypes.BIGINT,
+            field: 'begin_time',
+            comment: "出发时间"
         },
         createTime: {
             type: DataTypes.BIGINT,

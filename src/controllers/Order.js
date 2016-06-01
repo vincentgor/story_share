@@ -4,12 +4,12 @@
 
 const Promise = require('bluebird');
 
-const driverService = require('./../service/Driver');
+const orderService = require('./../service/Order');
 
 /**
  *
  */
-class Driver {
+class Order {
 
     constructor() {
 
@@ -21,17 +21,22 @@ class Driver {
             let myself = this.session.user || this.session.driver;
             let driverId = this.session.driver ? this.session.driver.id : 0;
 
-            let result = yield driverService.createOrfind({
+//            this.request.body = this.query;
+
+            var obj = {
                 originatorId: myself.id,
                 driverId: driverId,
                 cityOriginCode: this.request.body.cityOriginCode,
                 cityDestinationCode: this.request.body.cityDestinationCode,
                 origin: this.request.body.origin,
                 destination: this.request.body.destination,
+                beginTime: this.request.body.beginTime,
                 createTime: Date.now()
-            });
+            };
+
+            let result = yield orderService.create(obj);
             this.type = 'json';
-            if (result.created) {
+            if (result.id) {
                 // 创建成功
                 this.body = {
                     code: 0,
@@ -49,4 +54,4 @@ class Driver {
 
 }
 
-module.exports = new Driver();
+module.exports = new Order();
