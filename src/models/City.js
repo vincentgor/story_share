@@ -3,7 +3,7 @@
 module.exports = function (sequelize, DataTypes) {
     let City = sequelize.define('City', {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             field: 'id'
@@ -14,6 +14,12 @@ module.exports = function (sequelize, DataTypes) {
             unique: true,
             field: 'code',
             comment: "城市代号"
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: 'name',
+            comment: "城市"
         }
 
     }, {

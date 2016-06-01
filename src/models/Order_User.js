@@ -3,19 +3,21 @@
 module.exports = function (sequelize, DataTypes) {
     let OrderUser = sequelize.define('Order_User', {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             field: 'id'
         },
         userId: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             references  : {model: 'tbl_user', key: 'id'},
+            onUpdate: 'CASCADE',
             field: 'user_id'
         },
         orderId: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             references  : {model: 'tbl_order', key: 'id'},
+            onUpdate: 'CASCADE',
             field: 'order_id'
         },
         createTime: {
@@ -34,11 +36,24 @@ module.exports = function (sequelize, DataTypes) {
         tableName: 'tbl_order_user',
 
         indexes: [
-            {fields: ['user_id', 'order_id'], unique: false},
-            {fields: ['order_id', 'user_id'], unique: false}
+            {fields: ['user_id', 'order_id'], unique: true},
+            {fields: ['order_id', 'user_id'], unique: true}
         ],
 
-        comment: "订单表的乘客信息仓库"
+        comment: "订单表的乘客信息仓库",
+
+        classMethods: {
+            associate: function(models) {
+                OrderUser.belongsTo(models.Order, {
+                    onDelete: "CASCADE",
+                    onUpdate: "CASCADE",
+                    foreignKey: {
+                        allowNull: false
+                    }
+                });
+            }
+        }
+
     });
     return OrderUser;
 };

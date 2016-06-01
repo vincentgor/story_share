@@ -3,13 +3,13 @@
 module.exports = function (sequelize, DataTypes) {
     let Order = sequelize.define('Order', {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             field: 'id'
         },
         originatorId: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
             field: 'originator_id',
             comment: "发起人id"
@@ -17,6 +17,7 @@ module.exports = function (sequelize, DataTypes) {
         driverId: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            defaultValue: 0,
             field: 'driver_id',
             references  : {model: 'tbl_driver', key: 'id'},
             comment: "司机id"
@@ -29,14 +30,14 @@ module.exports = function (sequelize, DataTypes) {
             comment: "订单状态"
         },
         cityOriginCode: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.STRING,
             allowNull: false,
             field: 'city_origin_code',
             references  : {model: 'tbl_city', key: 'code'},
             comment: "出发城市代号"
         },
         cityDestinationCode: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.STRING,
             allowNull: false,
             field: 'city_destination_code',
             references  : {model: 'tbl_city', key: 'code'},
@@ -62,6 +63,7 @@ module.exports = function (sequelize, DataTypes) {
         currentPerson: {
             type: DataTypes.INTEGER,
             field: 'current_person',
+            defaultValue: 0,
             comment: "目前人数"
         },
         prize: {
@@ -92,9 +94,16 @@ module.exports = function (sequelize, DataTypes) {
 
     }, {
         timestamps: false,
-        tableName: 'tbl_user',
-        comment: "用户信息仓库"
+        tableName: 'tbl_order',
+        comment: "用户信息仓库",
+
+        classMethods: {
+            associate: function(models) {
+                Order.hasMany(models.Order_User)
+            }
+        }
+
     });
-    return User;
+    return Order;
 };
 

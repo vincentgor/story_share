@@ -3,19 +3,23 @@
 module.exports = function (sequelize, DataTypes) {
     let UserDriver = sequelize.define('User-Driver', {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             field: 'id'
         },
         userId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            references  : {model: 'tbl_user', key: 'id'},
+            type: DataTypes.INTEGER,
+            references: {model: 'tbl_user', key: 'id'},
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
             field: 'user_id'
         },
         driverId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            references  : {model: 'tbl_driver', key: 'id'},
+            type: DataTypes.INTEGER,
+            references: {model: 'tbl_driver', key: 'id'},
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
             field: 'driver_id'
         },
         createTime: {

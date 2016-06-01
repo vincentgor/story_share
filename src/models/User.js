@@ -3,7 +3,7 @@
 module.exports = function (sequelize, DataTypes) {
     let User = sequelize.define('User', {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             field: 'id'
@@ -48,6 +48,14 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             field: 'phone',
             comment: "手机号码"
+        },
+        cityCode: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            field: 'city_code',
+            references  : {model: 'tbl_city', key: 'code'},
+            onUpdate: 'CASCADE',
+            comment: "城市代号"
         },
         createTime: {
             type: DataTypes.BIGINT,
