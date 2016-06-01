@@ -28,6 +28,7 @@
     "config": "^1.20.1",
     "debug": "^2.2.0",
     "koa": "^1.2.0",
+    "koa-bodyparser": "^2.2.0",
     "koa-cors": "0.0.16",
     "koa-log4": "^1.0.1",
     "koa-log4js": "0.0.1",

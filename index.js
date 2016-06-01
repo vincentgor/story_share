@@ -10,6 +10,7 @@ const koa_static = require('koa-static');
 const cors = require('koa-cors');
 const log4js = require('koa-log4js');
 const session = require('koa-session');
+const bodyParser = require('koa-bodyparser');
 
 const models = require('./src/models');
 const notFound = require('./src/middleware/notFound');
@@ -17,6 +18,9 @@ const notFound = require('./src/middleware/notFound');
 const PORT = process.env.PORT || 8080;
 
 const app = koa();
+
+app.use(bodyParser());
+
 app.keys = ['story_share'];
 app.use(session(app));
 
