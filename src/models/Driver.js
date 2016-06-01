@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (sequelize, DataTypes) {
-    let User = sequelize.define('User', {
+    let Driver = sequelize.define('Driver', {
         id: {
             type: DataTypes.INTEGER.UNSIGNED,
             primaryKey: true,
@@ -67,9 +67,9 @@ module.exports = function (sequelize, DataTypes) {
 
     }, {
         timestamps: false,
-        tableName: 'tbl_user',
-        comment: "用户信息仓库"
+        tableName: 'tbl_driver',
+        comment: "司机信息仓库"
     });
-    return User;
+    return Driver;
 };
 
