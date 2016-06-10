@@ -1,6 +1,8 @@
 /**
  * Created by vinxent on 2016/5/26.
  */
+ 
+'use strict';
 
 class Foo {
 
