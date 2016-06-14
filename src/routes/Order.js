@@ -19,7 +19,10 @@ module.exports = function (router) {
     router.get('/:id', loginCheck.checkOnLine, orderController.detail);
 
     // 加入或者退出拼单
-    router.put('/:id', loginCheck.checkOnLine, orderController.joinOrLeave);
+    router.put('/:id/driver', loginCheck.checkOnLine, orderController.driverJoinOrLeave);
+
+    // 加入或者退出拼单
+    router.put('/:id/user', loginCheck.checkOnLine, orderController.userJoinOrLeave);
 
     // 删除拼单
     router.delete('/:id', loginCheck.checkOnLine, orderController.del);

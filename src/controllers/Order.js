@@ -95,57 +95,98 @@ class Order {
         };
 
         /**
-         * ### 加入或者退出拼单
+         * ### 加入或者退出拼单(司机端)
          * @param next
          */
-        this.joinOrLeave = function *(next) {
-            let order = this.session.order;
+        this.driverJoinOrLeave = function *(next) {
+            let order = this.session.order;   // 拼单记录
             let action = this.query.action === 'leave' || 'join';
-            let id = this.params.id;
-            let myself = this.session.user || this.session.driver;
-            let isDriver =this.session.driver ? true : false;
+//            let id = this.params.id;   // 拼单id
+            let myself = this.session.driver;
 
             let msg = '';
-            let code;
+            let code = 0;
 
             if (action === 'join') {
                 // 加入
-                if (isDriver) {
-                    // 司机接单
-                    if (order.driverId === myself.id) {
-                        code = 3;
-                        msg = '不能重复接单啊';
-                    } else if (order.driverId && order.driverId !== myself.id) {
-                        code = 4;
-                        msg = '已经有司机比你提前一步啦';
-                    } else {
-                        // 准备接单吧，骚年
-                        order.driverId = myself.id;
-                        yield orderService.update(order, 'driverId');
-                        code = 0;
-                        msg = '成功接单';
-                    }
+                if (order.driverId === myself.id) {
+                    code = 3;
+                    msg = '不能重复接单啊';
+                } else if (order.driverId && order.driverId !== myself.id) {
+                    code = 4;
+                    msg = '已经有司机比你提前一步啦';
                 } else {
-                    // 乘客加入
-
+                    // 准备接单吧，骚年
+                    order.driverId = myself.id;
+                    yield orderService.update(order, 'driverId');
+                    code = 0;
+                    msg = '成功接单';
                 }
             } else {
                 // 离开
-                if (isDriver) {
-                    // 司机跑路
-                    if (order.driverId !== myself.id) {
-                        code = 5;
-                        msg = '你并没有接下这个单啊';
-                    } else {
-                        // 准备跑路吧，骚年
-                        order.driverId = null;
-                        yield orderService.update(order, 'driverId');
-                        code = 0;
-                        msg = '成功取消接单';
-                    }
+                if (order.driverId !== myself.id) {
+                    code = 5;
+                    msg = '你并没有接下这个单啊';
                 } else {
-                    // 乘客退出
+                    // 准备跑路吧，骚年
+                    order.driverId = null;
+                    yield orderService.update(order, 'driverId');
+                    code = 0;
+                    msg = '成功取消接单';
+                }
+            }
 
+            this.body = {
+                code,
+                msg
+            };
+
+        };
+
+        /**
+         * ### 加入或者退出拼单(乘客端)
+         * @param next
+         */
+        this.userJoinOrLeave = function *(next) {
+            let order = this.session.order;   // 拼单记录
+            let action = this.query.action === 'leave' || 'join';
+            let id = this.params.id;   // 拼单id
+            let myself = this.session.user;
+
+            let msg = '';
+            let code = 0;
+
+            var result = yield orderService.getUser(id, myself.id);
+
+            if (action === 'join') {
+                // 加入
+
+
+
+                if (order.driverId === myself.id) {
+                    code = 3;
+                    msg = '不能重复接单啊';
+                } else if (order.driverId && order.driverId !== myself.id) {
+                    code = 4;
+                    msg = '已经有司机比你提前一步啦';
+                } else {
+                    // 准备接单吧，骚年
+                    order.driverId = myself.id;
+                    yield orderService.update(order, 'driverId');
+                    code = 0;
+                    msg = '成功接单';
+                }
+            } else {
+                // 离开
+                if (order.driverId !== myself.id) {
+                    code = 5;
+                    msg = '你并没有接下这个单啊';
+                } else {
+                    // 准备跑路吧，骚年
+                    order.driverId = null;
+                    yield orderService.update(order, 'driverId');
+                    code = 0;
+                    msg = '成功取消接单';
                 }
             }
 

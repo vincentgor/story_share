@@ -3,6 +3,7 @@
 const Promise = require('bluebird');
 
 const Order = require('./../models').Order;
+const Order_User = require('./../models').Order_User;
 
 class Server {
 
@@ -54,6 +55,25 @@ class Server {
 //                return Promise.reject('数据库错误');
 //            }
             return affectedCount;
+        });
+    }
+
+    /**
+     *
+     * @param userId
+     * @param orderId
+     */
+    addUser (userId, orderId) {
+        return Order_User.findOrCreate({
+            where: {
+                userId,
+                orderId
+            },
+            defaults: {
+                userId,
+                orderId,
+                createTime: Date.now()
+            }
         });
     }
 
