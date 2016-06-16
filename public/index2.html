@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="/css/style.css">-->
+    <title>欢迎来到相片故事节点</title>
+</head>
+<body>
+
+<input type="button" value="登录" onclick="login()" />
+<input type="button" value="登录（不带cookie）" onclick="queryOnline()" />
+<input type="button" value="登出" onclick="loginout()" />
+<div id="div"></div>
+</body>
+<script src="/jquery/dist/jquery.min.js"></script>
+<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+
+    function login() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://192.168.1.2:8080/api/v1/user/login',
+            success: function (data,d2, d3,d4) {
+                alert(JSON.stringify(data));
+                $('#div').html(JSON.stringify(data));
+
+            },
+            beforeSend: function (xhr) {
+//                xhr.withCredentials = true;
+            },
+            error: function (err) {
+                alert(JSON.stringify(err))
+            }
+        })
+    }
+
+    function queryOnline() {
+        console.log('ssds');
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: 'http://192.168.1.2:8080/api/v1/user/login',
+            success: function (data) {
+                alert(JSON.stringify(data));
+                console.log(data);
+            },
+            error: function (err) {
+                alert(JSON.stringify(err))
+            }
+        })
+    }
+
+    function loginout() {
+        console.log('ssds');
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://192.168.1.2:8080/api/v1/user/logout',
+            success: function (data) {
+                alert(JSON.stringify(data));
+                console.log(data);
+            },
+            error: function (err) {
+                alert(JSON.stringify(err))
+            }
+        })
+    }
+
+</script>
+</html>

@@ -26,7 +26,9 @@ app.use(session(app));
 
 app.use(koa_static(path.join(__dirname, 'bower_components')));
 app.use(koa_static(path.join(__dirname, 'public')));   // 这里最好不要直接写'public'，可能会有路径错误
-app.use(cors());
+app.use(cors({
+    credentials: true
+}));
 app.use(log4js());
 //app.use(log4js.koaLogger(log4js.getLogger("http"), { level: 'auto' }));
 
