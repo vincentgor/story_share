@@ -12,9 +12,6 @@
     "story"
   ],
   "homepage": "https://github.com/vincentgor/story_share",
-  "moduleType": [
-    "amd"
-  ],
   "private": true,
   "ignore": [
     "**/.*",
@@ -24,10 +21,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.6",
-    "jquery": "~2.2.0",
-    "vue": "^1.0.24",
-    "vue-router": "^0.7.13",
-    "layer": "*"
+    "bootstrap": "^3.3.7",
+    "vue-router": "^2.0.3",
+    "vue": "^2.1.3"
   }
 }

@@ -1,7 +1,5 @@
 'use strict';
 
-console;    // 其实我也不知道为何要这么些，但是不这么做的话，在debug模式下，我的ide不干了
-
 const path = require('path');
 
 const koa = require('koa');
@@ -48,7 +46,7 @@ app.use(notFound.dealWith);
 /**
  * 数据库初始化
  */
-models.sequelize.sync().then(function () {
+//models.sequelize.sync().then(function () {
     console.log('数据库构建完成');
     if (!module.parent) {
         app.listen(PORT, function () {
@@ -59,6 +57,6 @@ models.sequelize.sync().then(function () {
             console.log('server errer', err, ctx);
         });
     }
-});
+//});
 
 
