@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node example/index.js",
-    "start": "node index.js"
+    "start": "NODE_CONFIG_DIR=./api/config node api/index.js"
   },
   "repository": {
     "type": "git",
